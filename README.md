@@ -18,5 +18,7 @@ For the most recent data, there could be error present as it might not have been
 
 Source: [Link to the dataset used](https://s3.amazonaws.com/coach-courses-us/public/courses/da-spec-ml/Scripts/A1/Dataset-weather-prediction-dataset-processed.csv)
 
-
-
+## Searching for Best Algorithm
+The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 
+[YouTube Video Presentation](https://youtu.be/WdBm0hqbXZY)
+ 

@@ -6,6 +6,17 @@ This project was aimed at utilizing machine learning techniques to predict conse
 * Scaling Data to improve model performance
 * Gradient Descent method for predicting temperature
 
+## Project Hypotheses
+* Machine learning can accurately predict historical extreme temperatures using temperature data from stations across Europe.
+* Supervised machine learning models can predict the likelihood of extreme weather events based on historical data.
+* Machine learning models can be used to predict whether weather conditions on a given day will be favorable or unfavorable for outdoor activities.
+
+## Dataset
+The dataset for this project comes from European Climate Assessment & Dataset (ECA&D). They have robost data quality and homogeneity procedures to ensure data reliability and data consistency. The data contained in the dataset is between the year 1960-2022. This data is provided by various participating instituions across Europe. 
+
+For the most recent data, there could be error present as it might not have been through proper validation processes. Further, there might be concerns around instrument malfunction or calibration errors present in the data. But considering the fact that they resolve any error which could be present in the historical data and the quality measures in place, this is the best dataset that we can have.
+
+Source: [Link to the dataset used](https://s3.amazonaws.com/coach-courses-us/public/courses/da-spec-ml/Scripts/A1/Dataset-weather-prediction-dataset-processed.csv)
 
 
 

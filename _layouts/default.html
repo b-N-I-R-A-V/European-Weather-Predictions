@@ -15,10 +15,10 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+        <h1 style="text-align: center;"><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
 
         {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" width="200" height="200" alt="Logo" />
+          <img src="{{site.logo | relative_url}}" width="120" height="120" alt="Logo" style="display: block; margin: 0 auto;"/>
         {% endif %}
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>

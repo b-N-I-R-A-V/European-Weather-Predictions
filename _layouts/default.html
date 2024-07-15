@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ site.lang | default: 'en-US' }}">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% seo %}
-    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     {% include head-custom.html %}
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1 style="text-align: center;"><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+        <h1 style="text-align: center;"><a href="{{ '/' | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
 
         {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" width="120" height="120" alt="Logo" style="display: block; margin: 0 auto;"/>
+          <img src="{{ site.logo | relative_url }}" width="120" height="120" alt="Logo" style="display: block; margin: 0 auto;" />
         {% endif %}
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
@@ -30,6 +31,18 @@
         {% if site.github.is_user_page %}
         <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
         {% endif %}
+
+        <div class="social-links" style="text-align: center; margin-top: 1rem;">
+          <a href="https://www.linkedin.com/in/nirav-bariya/" target="_blank" style="margin: 0 1rem;">
+            <i class="fab fa-linkedin" style="font-size: 2rem;"></i>
+          </a>
+          <a href="https://github.com/b-nirav" target="_blank" style="margin: 0 1rem;">
+            <i class="fab fa-github" style="font-size: 2rem;"></i>
+          </a>
+          <a href="https://b-nirav.github.io/portfolio/" target="_blank" style="margin: 0 1rem;">
+            <i class="fas fa-globe" style="font-size: 2rem;"></i>
+          </a>
+        </div>
 
         {% if site.show_downloads %}
         <ul class="downloads">
@@ -49,6 +62,6 @@
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
   </body>
 </html>

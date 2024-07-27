@@ -180,21 +180,33 @@ plt.show()
 
 There are 2 major clusters with distance matric being on the higher side. The size of the clusters also seems to be of the same size as with average method.
 
+The above example considered all weather stations across Europe for 2010. We can either focus on all weather stations across Europe at a time or look at individual weather stations at a time. We can also have control or how the between clusters is to be calculated.
+
 The below demonstration shows crosstab for weather station DUSSELDORF.
 
 ```python
-df1_WM=df1_scaled.copy()
-df1_WM['cluster']=fcluster(dist_sin,2, criterion='maxclust')
-df1_WM.head()
+df1_AM[['DUSSELDORF_pleasant_weather','STOCKHOLM_pleasant_weather']] = 0
+df1_AM.loc[:, ['DUSSELDORF_pleasant_weather','STOCKHOLM_pleasant_weather']] = ans.loc[ans['DATE'].dt.year == 2010, ['DUSSELDORF_pleasant_weather','STOCKHOLM_pleasant_weather']].values
 
 #Cluster and pleasant days for DUSSELDORF
 print('Dusseldorf pleasant days:\n')
 pd.crosstab(index = [df1_AM['DUSSELDORF_pleasant_weather']],columns =df1_AM['cluster'])
 ```
 
+```python
+#Cluster and pleasant days for STOCKHOLM
+print('Stockholm pleasant days:\n')
+pd.crosstab(index = [df1_AM['STOCKHOLM_pleasant_weather']],columns =df1_AM['cluster'])
+```
 <div align = "center">
-  <img width="90%" alt="image" src="https://github.com/user-attachments/assets/9ef8f4b0-4eb3-4582-94b9-0cb6bb10f396">
+  <img width="50%" alt="image" src="https://github.com/user-attachments/assets/9ef8f4b0-4eb3-4582-94b9-0cb6bb10f396">
+    &nbsp; &nbsp; &nbsp; &nbsp;
+  <img width="50%" alt="image" src="https://github.com/user-attachments/assets/f98f6947-d257-41e1-a949-ee87cb652938">
 </div>
+
+For both the weather station Dusseldorf and Stockholm, cluster 3 had almost all pleasant days. This means any day falling outside cluster 3 is likely to be unpleasant.
+
+If we are to find new weather patterns over years, we can perhaps create clusters for each year. Then, we can analyze each these groups to see if there are any significant changes that has taken place over time.
 
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 

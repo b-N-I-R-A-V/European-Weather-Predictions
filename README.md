@@ -58,8 +58,9 @@ def compute_cost(X, y, theta=np.array([[0],[0]])):
 ```
 
 <div align = "center">
- <img width="631" alt="image" src="https://github.com/user-attachments/assets/e8b5c733-d991-4b8d-924e-5e8831bbff8a">
+ <img width="85%" alt="image" src="https://github.com/user-attachments/assets/e8b5c733-d991-4b8d-924e-5e8831bbff8a">
 </div>
+
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 
 [YouTube Video Presentation](https://youtu.be/WdBm0hqbXZY)

@@ -1,4 +1,4 @@
-# About
+# European Weather Prediction
 This project was aimed at utilizing machine learning techniques to predict consequences and impact of extreme weather events. The project was part of my coursework of Machine Learning Specialization by CareerFoundry. In this project we have used several machine learning algorithms to predict pleasant or unpleasant days for outdoor activities and we have assesed which algorithm best work for this goal.
 
 ## Tools and Techniques

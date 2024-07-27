@@ -73,7 +73,7 @@ One of the primary task of the project was to use the dataset and classify the d
 
 ### K-Nearest Neighbours(KNN)
 I started with one of the more simplar method for classification. Of course, I used the scaled dataset to train the model. And, I used train_test_split method from sklearn.model_selection to split the dataset in the training and testing dataset.
-``` python
+```python
 #
 k_range = np.arange(1,5)
 train_acc = np.empty(len(k_range))
@@ -106,10 +106,28 @@ The confusion matrix for all the weather stations:
     <img width="90%" alt="image" src="https://github.com/user-attachments/assets/22e419e5-303d-4cf1-9361-565c4ddafc17">
 </div>
 
+Following were my observations:
 * Considering the result of the test accuracy, I would say the algorithm is doing an average job of predicting the output.
 * From the confusion matrix, it seems that the accuracy is high for predicting unpleasant days.
 * In comparison, it is doing a poorer job of predicting the pleasant days.
 * The algorithm is giving 100% accuracy for Sonnblick station as there is only 1 output for any combination of input.
+
+### Multilayer Perceptron Model
+One of the more basic but effective artifical neural network is Multilayer-Perceptron Model. This model takes 3 important hyperparameters, number of hidden layers and neurons, maximum iterations, and tolerance level. Following is one of the model that I developed to assess its' accuracy:
+
+```python
+#Creating an ANN with 3 hidden layers 25 nodes each and 500 iterations
+mlp = MLPClassifier(hidden_layer_sizes=(25,25,25), max_iter=500, tol=0.0001)
+
+#Fit the data to the model
+mlp.fit(X_train, y_train)
+```
+Following are the results:
+<div align = "center">
+    <img width="86%" alt="image" src="https://github.com/user-attachments/assets/4b1234e9-7d4f-4a02-a8ab-7ff8714719a8">
+</div>
+
+In my opinion, three hidden layers of 35 nodes each with 1000 iterations and 0.0001 tolerance level worked the best for testing accuracy.
 
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 

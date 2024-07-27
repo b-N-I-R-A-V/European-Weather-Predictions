@@ -199,14 +199,230 @@ print('Stockholm pleasant days:\n')
 pd.crosstab(index = [df1_AM['STOCKHOLM_pleasant_weather']],columns =df1_AM['cluster'])
 ```
 <div align = "center">
-  <img width="45%" alt="image" src="https://github.com/user-attachments/assets/9ef8f4b0-4eb3-4582-94b9-0cb6bb10f396">
+  <img width="45%" alt="image" src="https://github.com/user-attachments/assets/a729dc36-7d49-4c4f-9612-b55b31065e6e">
     &nbsp; &nbsp; &nbsp; &nbsp;
   <img width="45%" alt="image" src="https://github.com/user-attachments/assets/f98f6947-d257-41e1-a949-ee87cb652938">
 </div>
 
 For both the weather station Dusseldorf and Stockholm, cluster 3 had almost all pleasant days. This means any day falling outside cluster 3 is likely to be unpleasant.
 
-If we are to find new weather patterns over years, we can perhaps create clusters for each year. Then, we can analyze each these groups to see if there are any significant changes that has taken place over time.
+I think if we are to find new weather patterns over years, we can perhaps create clusters for each year. Then, we can analyze how each these groups change to see if there are any significant changes that has taken place over time. 
+
+
+### Random Forests
+Random forests are an ensemble learning algorithm that combine multiple decision trees to improve predictive performance. We can use them to identify important features that are related to extreme weather events. I used them for classification purpose using weather data from all stations for between 2012-2022. I used GridSearch() to find optimal hyperparameters to build this model.
+
+
+```python
+# creating a RF classifier
+clf = RandomForestClassifier()
+
+# Defining Grid Space
+grid_space={'max_depth':[3,5,None],
+              'n_estimators':[100,200],
+              'max_features':[5,10,None],
+              'min_samples_leaf':[2,3],
+              'min_samples_split':[2,3,5],
+             'criterion':['gini','entropy']
+           }
+
+start = time.time()
+grid = GridSearchCV(clf,param_grid=grid_space,cv=3,scoring='accuracy', verbose=3, n_jobs=-1)
+model_grid = grid.fit(X_train, y_train)
+print('Search took %s minutes' % ((time.time() - start)/60))
+
+# grid search results
+print('Best GRID search hyperparameters are: '+str(model_grid.best_params_))
+print('Best GRID search score is: '+str(model_grid.best_score_))
+```
+Best GRID search hyperparameters are: {'criterion': 'entropy', 'max_depth': None, 'max_features': None, 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 100}
+Best GRID search score is: 0.6546885694729637
+
+```python
+# performing predictions on the test dataset
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+# using metrics module for accuracy calculation
+print("Model Accuracy: ", metrics.accuracy_score(y_test, y_pred))
+```
+Random Forest Classifier (with optimization) 61%
+
+<div align = "center">
+    <img width="80%" alt="image" src="https://github.com/user-attachments/assets/3f49116c-8954-48ad-b1f7-6e39f3ab722e">
+</div>
+
+This decision tree from the random forests classifier is very complex and in incomprehensible. When I looked at individual stations with all years of data and performed GridSearch(), it was much more simple and comrehensible. Below is a model build for Maastricht for all Years of data.
+```python
+#Grid_Space
+grid_space={'max_depth':[2,3,5,None],
+              'n_estimators':[50,100],
+              'max_features':[5,10],
+              'min_samples_leaf':[1,2,3],
+              'min_samples_split':[2,3,5],
+             'criterion':['gini','entropy']
+           }
+#Grid Search
+grid = GridSearchCV(clf,param_grid=grid_space,cv=3,scoring='accuracy', verbose=3, n_jobs=-1)
+model_grid = grid.fit(X_train, y_train)
+
+# grid search results
+print('Best GRID search hyperparameters are: '+str(model_grid.best_params_))
+print('Best GRID search score is: '+str(model_grid.best_score_))
+```
+Best GRID search hyperparameters are: {'criterion': 'gini', 'max_depth': 3, 'max_features': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 50}
+Best GRID search score is: 1.0
+
+```python
+# performing predictions on the test dataset
+clf1 = RandomForestClassifier(n_estimators = 50, max_depth=3, max_features = 10, min_samples_leaf = 1, min_samples_split = 2,
+                             criterion = 'gini')  
+clf1.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+# using metrics module for accuracy calculation
+print("Model Accuracy: ", metrics.accuracy_score(y_test, y_pred))
+print("F1-Score: ", metrics.f1_score(y_test, y_pred))
+```
+Model Accuracy:  1.0
+F1-Score:  1.0
+
+The model had an accuracy of 100% and F-1 score of 100%. Following is one of the decison trees from the forest.
+<div align = "center">
+    <img width="80%" alt="image" src="https://github.com/user-attachments/assets/c27f99e6-da97-485d-8601-baedf6ea76de">
+</div>
+
+I then extracted important features for this decision tree.
+```python
+imp_features = clf1.feature_importances_
+imp_features
+
+%matplotlib inline
+plt.style.use('fivethirtyeight')
+# list of x locations for plotting
+x_values = list(range(len(imp_features)))
+
+plt.bar(x_values, imp_features, orientation = 'vertical')
+plt.xticks(x_values, X_train.columns.to_list(), rotation='vertical',fontsize=10)
+plt.ylabel('Importance',fontsize=10); plt.xlabel('Features',fontsize=10); plt.title('MAASTRICHT Feature Importance',fontsize=14);
+plt.yticks(fontsize=10);
+```
+<div align = "center">
+    <img width="80%" alt="image" src="https://github.com/user-attachments/assets/05d861b4-52fc-420d-b9c6-30cc1f1ab2f7">
+</div>
+
+In this case, maximum temperature, precipitation, and sunshine were important. Random forests can produce good resutls for individual stations.
+
+### Convolutional Neural Network
+Convolutional Neural Network is a deep learning algorithm and much more complex than multilayer perceptron model. This model took over an hour to optimize as I trained it on the entire dataset and the high number of hyperparameters involved. This required using BaysianOptimization() to find the best values for hyperparameters.
+```python
+# Create function
+def bay_area(neurons, activation, kernel, optimizer, learning_rate, batch_size, epochs,
+              layers1, layers2, normalization, dropout, dropout_rate): 
+    optimizerL = ['SGD', 'Adam', 'RMSprop', 'Adadelta', 'Adagrad', 'Adamax', 'Nadam', 'Ftrl']
+    activationL = ['relu', 'sigmoid', 'softplus', 'softsign', 'tanh', 'selu',
+                   'elu', 'exponential', LeakyReLU,'relu']
+    
+    neurons = round(neurons)
+    kernel = round(kernel)
+    activation = activationL[round(activation)]
+    optimizer = optimizerL[round(optimizer)]
+    batch_size = round(batch_size)
+    
+    epochs = round(epochs)
+    layers1 = round(layers1)
+    layers2 = round(layers2)
+    
+    def cnn_model():
+        model = Sequential()
+        model.add(Conv1D(neurons, kernel_size=kernel,activation=activation, input_shape=(timesteps, input_dim)))
+        #model.add(Conv1D(32, kernel_size=1,activation='relu', input_shape=(timesteps, input_dim)))
+        
+        if normalization > 0.5:
+            model.add(BatchNormalization())
+            
+        for i in range(layers1):
+            model.add(Dense(neurons, activation=activation)) #(neurons, activation=activation))
+            
+        if dropout > 0.5:
+            model.add(Dropout(dropout_rate, seed=123))
+            
+        for i in range(layers2):
+            model.add(Dense(neurons, activation=activation))
+            
+        model.add(MaxPooling1D())
+        model.add(Flatten())
+        model.add(Dense(n_classes, activation='softmax')) #sigmoid softmax
+        # model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy']) #categorical_crossentropy
+        model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer, metrics=['accuracy']) #categorical_crossentropy
+        return model
+        
+    es = EarlyStopping(monitor='accuracy', mode='max', verbose=2, patience=20)
+    nn = KerasClassifier(build_fn=cnn_model, epochs=epochs, batch_size=batch_size, verbose=2)
+    kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=123)
+    score = cross_val_score(nn, X_train, y_train, scoring=score_acc, cv=kfold, fit_params={'callbacks':[es]}).mean()
+    return score
+```
+```python
+optimum = nn_opt.max['params']
+print(optimum)
+print(round(optimum['optimizer']))
+```
+{'activation': 2.79884089544096, 'batch_size': 460.14665762139765, 'dropout': 0.7296061783380641, 'dropout_rate': 0.19126724140656393, 'epochs': 90.97701940610612, 'kernel': 1.9444298503238986, 'layers1': 1.2391884918766034, 'layers2': 2.42648957444599, 'learning_rate': 0.7631771981307285, 'neurons': 60.51494778125466, 'normalization': 0.770967179954561, 'optimizer': 3.456569174550735}
+3
+
+I used these values to train the model which when trained gave an **accuracy of 96.96%.** 
+
+```python
+## Building CNN Model
+epochs = 91
+batch_size = 460
+#n_hidden = 32
+
+timesteps = len(X_train[0])
+input_dim = len(X_train[0][0])
+n_classes = 15 # There are 15 classes.
+layers1 = 1
+layers2 = 2
+activation = 'softsign'
+kernel = 2
+neurons = 61
+normalization = 0.770967179954561
+dropout = 0.7296061783380641
+dropout_rate = 0.19126724140656393
+optimizer = 'Adadelta'
+learning_rate = 0.7631771981307285
+
+model = Sequential()
+model.add(Conv1D(neurons, kernel_size=kernel, activation=activation, input_shape=(timesteps, input_dim)))
+
+if normalization > 0.5:
+    model.add(BatchNormalization())
+    
+for i in range(layers1):
+    model.add(Dense(neurons, activation=activation))
+    
+if dropout > 0.5:
+    model.add(Dropout(dropout_rate, seed=123))
+    
+for i in range(layers2):
+    model.add(Dense(neurons, activation=activation))
+    
+model.add(MaxPooling1D())
+
+model.add(Flatten())
+
+model.add(Dense(n_classes, activation='softmax')) #softmax sigmoid
+
+model.compile(loss='categorical_crossentropy', optimizer=Adadelta(learning_rate), metrics=['accuracy'])
+```
+```python
+model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, verbose=2)
+```
+<div align = "center"
+    <img width="80%" alt="image" src="https://github.com/user-attachments/assets/dcaf5c43-4696-438a-ac80-7a3cf6ead86c">
+</div>
+
+This is much more useful model when we want to predict unpleasant and pleasant days for the entire dataset containing all 15 weather stations. In comparisoh, Random Forests had accuracy was 100% for one station at a time and about 62% for all the stations.
+
 
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 

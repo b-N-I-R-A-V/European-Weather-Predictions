@@ -1,5 +1,5 @@
 # European Weather Prediction
-**Purpose and Context:** This project was aimed at utilizing machine learning techniques to predict consequences and impact of extreme weather events. The project was part of my coursework of Machine Learning Specialization by CareerFoundry. In this project we have used several machine learning algorithms to predict pleasant and unpleasant days for outdoor activities and we have assesed which algorithm best work for this goal.
+**Purpose and Context:** This project aimed to utilize machine learning techniques to predict the consequences and impacts of extreme weather events. The project was part of my coursework for the Machine Learning Specialization by CareerFoundry. In this project, we used several machine learning algorithms to predict pleasant and unpleasant days for outdoor activities and assessed which algorithm works best for this goal.
 
 ### Project Goals:
 * Finding new patterns in weather changes over the last 60 years.
@@ -9,9 +9,9 @@
 * Determining the safest places for people to live in Europe within the next 25 to 50 years.
 
 ## Tools and Techniques
-For this project Python was used. We used Sci-kit learn, Tensorflow, and Keras as our primary libraries for machine learning algorithms along with data manipulation library pandas and for numerical computation library numpy. In particular we are using following tools and techniques:
-* K-Nearest Neighbors(KNN), Decision Trees, Random Forests, Convolutional Neural Network, Recurrent Neural Network (Long-Short Term Memory), Generative Adversarial Network(GAN).
-* Scaling Data to improve model performance.
+FFor this project, Python was used. We utilized Scikit-learn, TensorFlow, and Keras as our primary libraries for machine learning algorithms, along with the data manipulation library pandas and the numerical computation library NumPy. Specifically, we used the following tools and techniques:
+* K-Nearest Neighbors (KNN), Decision Trees, Random Forests, Convolutional Neural Networks, Recurrent Neural Networks (Long Short-Term Memory), and Generative Adversarial Networks (GAN).
+* Scaling data to improve model performance.
 * Gradient Descent method for predicting temperature.
 
 ## Project Hypotheses
@@ -430,18 +430,19 @@ Note:
 
 ## Conclusion and Recommendations
 
-Extreme weather prediction is a very complex task there are numerous ways it can be done. One of them is using historical dataset of extreme weather events and training machine learning models using them. Based on the models that I have developed, I created 3 thought experiments that would help predict extreme weather events in future.
+Extreme weather prediction is a very complex task, and there are numerous ways it can be done. One approach is using historical datasets of extreme weather events and training machine learning models with them. Based on the models I have developed, I created three thought experiments that would help predict extreme weather events in the future.
 
-1. Clustering algorithms such as hierarchical clustering may help us find changes in weather patterns over a period.
-2. Classification algorithms such as Random Forests or CNN can be used to find out weather patterns that are outside regional norms and find out important features that may help us predicting extreme weather events.
-3. Generative adversarial networks have the potential to be used to generate images that will help us visualize future extreme weather events.
+1. Clustering algorithms such as hierarchical clustering may help us find changes in weather patterns over time.
+2. Classification algorithms such as Random Forests or CNN can be used to identify weather patterns that are outside regional norms and determine important features that may help us predict extreme weather events.
+3. Generative adversarial networks (GANs) have the potential to generate images that will help us visualize future extreme weather events.
 
-All three algorithm fulfill a different objective for European weather prediction and can be further developed.
-• The algorithms with highest accuracy after optimization were Random Forests(100%) and CNN(95.96%).
-• We can develop more on the second thought experiment that predicts future events using Random Forests (identifying key features), CNN(capturing intricate patterns), and LSTM for forecasting future events.
-• Algorithms can be trained using image data on extreme weather events.
+All three algorithms fulfill different objectives for European weather prediction and can be further developed:
 
-Among all the possibilities I have discussed, I would choose Random Forests to identify important features for extreme weather predictions and CNN to predict extreme weather events as it had the highest accuracy for the entire dataset. 
+* The algorithms with the highest accuracy after optimization were Random Forests (100%) and CNN (95.96%).
+* We can further develop the second thought experiment that predicts future events using Random Forests (for identifying key features), CNN (for capturing intricate patterns), and LSTM for forecasting future events.
+* Algorithms can be trained using image data on extreme weather events.
+
+Among all the possibilities I have discussed, I would choose Random Forests to identify important features for extreme weather predictions and CNN to predict extreme weather events, as it had the highest accuracy for the entire dataset.
 
 
 I hope you have found something useful. If you have any questions or suggestions for me, feel free to reach out via my [LinkedIn](https://www.linkedin.com/in/nirav-bariya/) profile or [email](mailto:nkb.bariya@gmail.com) me.  Have a great rest of the day!

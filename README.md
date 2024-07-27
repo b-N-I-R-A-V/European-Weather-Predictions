@@ -112,6 +112,35 @@ Following were my observations:
 * In comparison, it is doing a poorer job of predicting the pleasant days.
 * The algorithm is giving 100% accuracy for Sonnblick station as there is only 1 output for any combination of input.
 
+### Decision Trees
+Decision Trees are useful machine learning algorithms for classification. Decision Trees work by recursively splitting the data into subsets based on input features. They try create homogeneous subsets by calculating impurity of a node and reducing the impurity to 0.
+
+There were two important hyperparameters that I looked at, criterion and min_samples_split. I considered "gini"
+criterion to split the nodes of the tree and checked performance for different values of min_samples_split.
+```python
+weather_dt = DecisionTreeClassifier(criterion='gini', min_samples_split=10)
+weather_dt.fit(X_train, y_train)
+
+#training accuracy score using the cross validation method
+y_pred_train = weather_dt.predict(X_train)
+print('Train accuracy score: ',cross_val_score(weather_dt, X_train, y_train, cv = 3, scoring='accuracy').mean())
+
+# y_test predictions
+y_pred_test = weather_dt.predict(X_test)
+# Accuracy of test data
+accuracy_score(y_test, y_pred_test)
+```
+Train accuracy score:  0.6263072553707182
+Test accuracy score: 0.6573719065876612
+
+A snapshot from all the confusion matrices:
+<div align = "center">
+ <img width="80%" alt="image" src="https://github.com/user-attachments/assets/f309fbe9-b95d-49b9-aff6-8962919c05ff">
+</div>
+
+I tried pruning the decision tree by increasing the ‘min_samples_split’ parameter. I found that that the overall accuracy for the testing data is improved a little but in some cases the accuracy has become worse. For instance, in the case of Valentia, the pleasant days accuracy was very poor. The model predicted it correctly only 70 times out of 132 predictions! It might be due to the case that there are more unpleasant days recorded than there are pleasant days recorded. Therefore, I don’t think pruning the decision tree might help.
+
+
 ### Multilayer Perceptron Model
 One of the more basic but effective artifical neural network is Multilayer-Perceptron Model. This model takes 3 important hyperparameters, number of hidden layers and neurons, maximum iterations, and tolerance level. Following is one of the model that I developed to assess its' accuracy:
 
@@ -128,7 +157,44 @@ Following are the results:
 
 </div>
 
-In my opinion, three hidden layers of 35 nodes each with 1000 iterations and 0.0001 tolerance level worked the best for testing accuracy.
+In my opinion, three hidden layers of 35 nodes each with 1000 iterations and 0.0001 tolerance level worked the best for testing accuracy. Though, we will use other neural networks with regularization techniques to improve these results.
+
+
+### Hierarchical Clustering
+I then looked at an unsupervised machine learning algorithms to find if they can produce some meaningful clusters. I plotted dendrograms to see how these clusters are formed. There were several methods to calculate the distance between clusters such as 'single', 'complete', 'average', and 'ward' method. I looked at all the methods for selected years and created a crosstab to find the intersection of clusters created and pleasant and unpleasant days.
+
+```python
+# Clusters and Dendograms using 'ward' method
+dist_sin = linkage(df1_scaled,method="ward")
+plt.figure(figsize=(18,6))
+dendrogram(dist_sin, leaf_rotation=90)
+plt.xlabel('Index')
+plt.ylabel('Distance')
+plt.title('All Stations, Year 2010')
+plt.suptitle("Dendrogram Ward Method",fontsize=18)
+plt.show()
+```
+<div align = "center">
+  <img width="90%" alt="image" src="https://github.com/user-attachments/assets/5ea82653-7ffc-44c8-b9fd-524f146bffd8">
+</div>
+
+There are 2 major clusters with distance matric being on the higher side. The size of the clusters also seems to be of the same size as with average method.
+
+The below demonstration shows crosstab for weather station DUSSELDORF.
+
+```python
+df1_WM=df1_scaled.copy()
+df1_WM['cluster']=fcluster(dist_sin,2, criterion='maxclust')
+df1_WM.head()
+
+#Cluster and pleasant days for DUSSELDORF
+print('Dusseldorf pleasant days:\n')
+pd.crosstab(index = [df1_AM['DUSSELDORF_pleasant_weather']],columns =df1_AM['cluster'])
+```
+
+<div align = "center">
+  <img width="90%" alt="image" src="https://github.com/user-attachments/assets/9ef8f4b0-4eb3-4582-94b9-0cb6bb10f396">
+</div>
 
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 

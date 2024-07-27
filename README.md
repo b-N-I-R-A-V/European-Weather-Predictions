@@ -124,7 +124,8 @@ mlp.fit(X_train, y_train)
 ```
 Following are the results:
 <div align = "center">
-    <img width="86%" alt="image" src="https://github.com/user-attachments/assets/4b1234e9-7d4f-4a02-a8ab-7ff8714719a8">
+    <img width="85%" alt="image" src="https://github.com/user-attachments/assets/a0860467-f96c-43dd-b134-3331fc31bd5f">
+
 </div>
 
 In my opinion, three hidden layers of 35 nodes each with 1000 iterations and 0.0001 tolerance level worked the best for testing accuracy.

@@ -32,7 +32,7 @@ For the most recent data, there could be error present as it might not have been
 
 
 ## Searching for Best Algorithm
-To fulfill the objectives stated, I started exploring gradient descent method to identify a relationship between days of year and temperature. Gradient Descent is a type of optiization algorith where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely \thetha_1 and \theta_0.
+To fulfill the objectives stated, I started exploring gradient descent method to identify a relationship between days of year and temperature. Gradient Descent is a type of optiization algorith where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely theta;<sub>0</sub>
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 
 [YouTube Video Presentation](https://youtu.be/WdBm0hqbXZY)

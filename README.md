@@ -96,15 +96,20 @@ Following graph shows the training and testing accuracy for various number of ne
 <div align = "center">
     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/8c6a19d1-9305-4769-83ed-824f9fa5313e">
 </div>
+We started with number of neighbors equal to 1 and we gradually increase it to 4 neighbors. From the graph above we see that train accuracy falls sharply from 1 neighbor to 2 neighbors. The accuracy is reduced from 100% to 56%. The accuracy remains the same when we change the neighbors to 3 and it falls slightly when we increase the neighbors to 4, about 52% accuracy. In contrast, the train accuracy rises slowly from just above 42% accuracy when 1 neighbor to 45% accuracy when there are 4 neighbors.
 
 The confusion matrix for all the weather stations:
 <div align ="center">
-    <img width="80%" alt="image" src="https://github.com/user-attachments/assets/728ae7ff-3897-4022-b429-74ff916e6bd4">
+    <img width="90%" alt="image" src="https://github.com/user-attachments/assets/728ae7ff-3897-4022-b429-74ff916e6bd4">
 </div>
 <div align ="center">
-    <img width="80%" alt="image" src="https://github.com/user-attachments/assets/22e419e5-303d-4cf1-9361-565c4ddafc17">
+    <img width="90%" alt="image" src="https://github.com/user-attachments/assets/22e419e5-303d-4cf1-9361-565c4ddafc17">
 </div>
 
+* Considering the result of the test accuracy, I would say the algorithm is doing an average job of predicting the output.
+* From the confusion matrix, it seems that the accuracy is high for predicting unpleasant days.
+* In comparison, it is doing a poorer job of predicting the pleasant days.
+* The algorithm is giving 100% accuracy for Sonnblick station as there is only 1 output for any combination of input.
 
 
 The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 

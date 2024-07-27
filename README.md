@@ -33,7 +33,7 @@ For the most recent data, there could be error present as it might not have been
 
 ## Searching for Best Algorithm
 To fulfill the objectives stated, I started exploring gradient descent method to identify a relationship between days of year and temperature. Gradient Descent is a type of optiization algorith where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely theta_0 and theta_1.
-''' python
+``` python
 def compute_cost(X, y, theta=np.array([[0],[0]])):
     """Given covariate matrix X, the prediction results y and coefficients theta
     compute the loss"""
@@ -55,8 +55,8 @@ def compute_cost(X, y, theta=np.array([[0],[0]])):
     loss = error_term/(2*m)
     
     return loss
-'''
-I calculated 
+```
+
 <div align = "center">
  <img width="631" alt="image" src="https://github.com/user-attachments/assets/e8b5c733-d991-4b8d-924e-5e8831bbff8a">
 </div>

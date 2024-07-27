@@ -423,12 +423,25 @@ model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, verbose=2)
 
 This is much more useful model when we want to predict unpleasant and pleasant days for the entire dataset containing all 15 weather stations. In comparisoh, Random Forests had accuracy was 100% for one station at a time and about 62% for all the stations.
 
+Note: 
+* I have not optimized Recurrent Neural Networks(RNN) such as Long- Short Term Memory(LSTM) which works better with time-series data that can also be used if we are to predict extreme weather events.
+* CNN works well image data and can be used for classification of weather images into different categories describing weather events. I have added the script for weather image classification in the scripts folder. It had an accuracy of 93.33%.
+* Scritps for Generative Adversarial Networks(GAN) have been left out from this presentation to make it more focused on classification algorithms. None the less, they are available in the scripts folder if you want to check them out. They have the potential to visualize how future weather events can look like if we train them on sufficiently large dataset of images with extreme weather events. 
+
+## Conclusion and Recommendations
+
+Extreme weather prediction is a very complex task there are numerous ways it can be done. One of them is using historical dataset of extreme weather events and training machine learning models using them. Based on the models that I have developed, I created 3 thought experiments that would help predict extreme weather events in future.
+
+1. Clustering algorithms such as hierarchical clustering may help us find changes in weather patterns over a period.
+2. Classification algorithms such as Random Forests or CNN can be used to find out weather patterns that are outside regional norms and find out important features that may help us predicting extreme weather events.
+3. Generative adversarial networks have the potential to be used to generate images that will help us visualize future extreme weather events.
+
+All three algorithm fulfill a different objective for European weather prediction and can be further developed.
+• The algorithms with highest accuracy after optimization were Random Forests(100%) and CNN(95.96%).
+• We can develop more on the second thought experiment that predicts future events using Random Forests (identifying key features), CNN(capturing intricate patterns), and LSTM for forecasting future events.
+• Algorithms can be trained using image data on extreme weather events.
+
+Among all the possibilities I have discussed, I would choose Random Forests to identify important features for extreme weather predictions and CNN to predict extreme weather events as it had the highest accuracy for the entire dataset. 
 
 
-The following video provides a walkthrough of the techniques used and my opinion on selecting the best algorithm. 
-[YouTube Video Presentation](https://youtu.be/WdBm0hqbXZY)
-You can also go through the presentation file that I have created which can help in understanding the project better.
-
-[Presentation File](https://github.com/b-N-I-R-A-V/European-Weather-Predictions/blob/main/Presentation%20File.pdf)
-
-
+I hope you have found something useful. If you have any questions or suggestions for me, feel free to reach out via my [LinkedIn](https://www.linkedin.com/in/nirav-bariya/) profile or [email](mailto:nkb.bariya@gmail.com) me.  Have a great rest of the day!

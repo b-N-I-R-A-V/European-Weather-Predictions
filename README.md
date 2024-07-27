@@ -124,7 +124,7 @@ mlp.fit(X_train, y_train)
 ```
 Following are the results:
 <div align = "center">
-    <img width="85%" alt="image" src="https://github.com/user-attachments/assets/a0860467-f96c-43dd-b134-3331fc31bd5f">
+    <img width="85%" alt="image" src="https://github.com/user-attachments/assets/0c17cf8f-b800-42cd-9f15-d262a39ce9fb">
 
 </div>
 

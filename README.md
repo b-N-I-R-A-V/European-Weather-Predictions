@@ -164,21 +164,21 @@ In my opinion, three hidden layers of 35 nodes each with 1000 iterations and 0.0
 I then looked at an unsupervised machine learning algorithms to find if they can produce some meaningful clusters. I plotted dendrograms to see how these clusters are formed. There were several methods to calculate the distance between clusters such as 'single', 'complete', 'average', and 'ward' method. I looked at all the methods for selected years and created a crosstab to find the intersection of clusters created and pleasant and unpleasant days.
 
 ```python
-# Clusters and Dendograms using 'ward' method
-dist_sin = linkage(df1_scaled,method="ward")
+# Clusters and Dendograms using 'average' method
+dist_sin = linkage(df1_scaled,method="average")
 plt.figure(figsize=(18,6))
 dendrogram(dist_sin, leaf_rotation=90)
 plt.xlabel('Index')
 plt.ylabel('Distance')
 plt.title('All Stations, Year 2010')
-plt.suptitle("Dendrogram Ward Method",fontsize=18)
+plt.suptitle("Dendrogram Average Method",fontsize=18)
 plt.show()
 ```
 <div align = "center">
   <img width="90%" alt="image" src="https://github.com/user-attachments/assets/5ea82653-7ffc-44c8-b9fd-524f146bffd8">
 </div>
 
-There are 2 major clusters with distance matric being on the higher side. The size of the clusters also seems to be of the same size as with average method.
+There are 2 major clusters immediately visible. There are 2 small clusters as well with one cluster having only one point.
 
 The above example considered all weather stations across Europe for 2010. We can either focus on all weather stations across Europe at a time or look at individual weather stations at a time. We can also have control or how the between clusters is to be calculated.
 
@@ -199,9 +199,9 @@ print('Stockholm pleasant days:\n')
 pd.crosstab(index = [df1_AM['STOCKHOLM_pleasant_weather']],columns =df1_AM['cluster'])
 ```
 <div align = "center">
-  <img width="50%" alt="image" src="https://github.com/user-attachments/assets/9ef8f4b0-4eb3-4582-94b9-0cb6bb10f396">
+  <img width="45%" alt="image" src="https://github.com/user-attachments/assets/9ef8f4b0-4eb3-4582-94b9-0cb6bb10f396">
     &nbsp; &nbsp; &nbsp; &nbsp;
-  <img width="50%" alt="image" src="https://github.com/user-attachments/assets/f98f6947-d257-41e1-a949-ee87cb652938">
+  <img width="45%" alt="image" src="https://github.com/user-attachments/assets/f98f6947-d257-41e1-a949-ee87cb652938">
 </div>
 
 For both the weather station Dusseldorf and Stockholm, cluster 3 had almost all pleasant days. This means any day falling outside cluster 3 is likely to be unpleasant.

@@ -32,7 +32,7 @@ For the most recent data, there could be error present as it might not have been
 
 
 ## Searching for Best Algorithm
-To fulfill the objectives stated, I started exploring gradient descent method to identify a relationship between days of year and temperature. Gradient Descent is a type of optiization algorith where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely theta_0 and theta_1.
+To fulfill the objectives stated, I started exploring gradient descent method to identify a relationship between days of year and temperature. Gradient Descent is a type of optiization algorith where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely theta_0 and theta_1. Following code was used to calculate the loss function.
 ``` python
 def compute_cost(X, y, theta=np.array([[0],[0]])):
     """Given covariate matrix X, the prediction results y and coefficients theta

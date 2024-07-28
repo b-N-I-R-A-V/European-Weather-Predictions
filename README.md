@@ -27,14 +27,14 @@ The dataset for this project comes from European Climate Assessment & Dataset (E
 
 
 ### Challenges with the Dataset
-For the most recent data, there could be error present as it might not have been through proper validation processes. Further, there might be concerns around instrument malfunction or calibration errors present in the data. But considering the fact that they resolve any error which could be present in the historical data and the quality measures in place, this is the best dataset that we can have.
+For the most recent data, there could be errors present as it might not have been through proper validation processes. Additionally, there might be concerns around instrument malfunction or calibration errors in the data. However, considering the efforts to resolve any errors in the historical data and the quality measures in place, this is the best dataset that we can have.
 
 ### Data Preprocessing
-The dataset used was scaled using StandardScalar() to make sure that features with extreme values do not create bias in the dataset. Moreover, there were 18 weather stations in total. But pleasant day data was not available for 3 of the weather stations and hence weather data from these stations were dropped. Further, once I created a subset of the original data by selecting a weather station or time period, I removed month and date data from the subsets to train the models.
+The dataset was scaled using StandardScaler() to ensure that features with extreme values do not create bias in the dataset. Moreover, there were 18 weather stations in total, but pleasant day data was not available for 3 of the weather stations. Hence, weather data from these stations were dropped. Further, once I created a subset of the original data by selecting a weather station or time period, I removed month and date data from the subsets to train the models.
 
 
 ## Gradient Descent Method
-To fulfill the objectives stated, I started exploring gradient descent method to identify a relationship between days of year and temperature. Gradient Descent is a type of optiization algorith where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely theta_0 and theta_1. Following code was used to calculate the loss function.
+To fulfill the stated objectives, I started exploring the gradient descent method to identify a relationship between the day of the year and temperature. Gradient Descent is a type of optimization algorithm where the primary objective is to minimize the loss function. There were two parameters which approximated temperature, namely theta_0 and theta_1. The following code was used to calculate the loss function.
 ``` python
 def compute_cost(X, y, theta=np.array([[0],[0]])):
     """Given covariate matrix X, the prediction results y and coefficients theta
@@ -69,10 +69,10 @@ The below is illustration for Mean Temperature of Madrid in 2020.
 
 ## Searching for Algorithm for Weather Prediction
 
-One of the primary task of the project was to use the dataset and classify the days as pleasant or unpleasant day. This same alogorithm can be extended and used for identifying extreme weather consditions.
+One of the primary tasks of the project was to use the dataset and classify the days as pleasant or unpleasant. This same algorithm can be extended and used for identifying extreme weather conditions.
 
 ### K-Nearest Neighbours(KNN)
-I started with one of the more simplar method for classification. Of course, I used the scaled dataset to train the model. And, I used train_test_split method from sklearn.model_selection to split the dataset in the training and testing dataset.
+I started with one of the simpler methods for classification. Of course, I used the scaled dataset to train the model. Additionally, I used the train_test_split method from sklearn.model_selection to split the dataset into training and testing datasets.
 ```python
 #
 k_range = np.arange(1,5)
@@ -96,7 +96,7 @@ Following graph shows the training and testing accuracy for various number of ne
 <div align = "center">
     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/8c6a19d1-9305-4769-83ed-824f9fa5313e">
 </div>
-We started with number of neighbors equal to 1 and we gradually increase it to 4 neighbors. From the graph above we see that train accuracy falls sharply from 1 neighbor to 2 neighbors. The accuracy is reduced from 100% to 56%. The accuracy remains the same when we change the neighbors to 3 and it falls slightly when we increase the neighbors to 4, about 52% accuracy. In contrast, the train accuracy rises slowly from just above 42% accuracy when 1 neighbor to 45% accuracy when there are 4 neighbors.
+I started with the number of neighbors equal to 1 and gradually increased it to 4 neighbors. From the graph above, we see that test accuracy falls sharply from 1 neighbor to 2 neighbors, reducing from 100% to 56%. The accuracy remains the same when we change to 3 neighbors and falls slightly when we increase to 4 neighbors, about 52% accuracy. In contrast, the train accuracy rises slowly from just above 42% with 1 neighbor to 45% with 4 neighbors.
 
 The confusion matrix for all the weather stations:
 <div align ="center">
@@ -107,16 +107,16 @@ The confusion matrix for all the weather stations:
 </div>
 
 Following were my observations:
-* Considering the result of the test accuracy, I would say the algorithm is doing an average job of predicting the output.
+* Considering the test accuracy results, I would say the algorithm is doing an average job of predicting the output.
 * From the confusion matrix, it seems that the accuracy is high for predicting unpleasant days.
-* In comparison, it is doing a poorer job of predicting the pleasant days.
-* The algorithm is giving 100% accuracy for Sonnblick station as there is only 1 output for any combination of input.
+* In comparison, it is doing a poorer job of predicting pleasant days.
+* The algorithm is giving 100% accuracy for the Sonnblick station as there is only 1 output for any combination of input.
+
 
 ### Decision Trees
-Decision Trees are useful machine learning algorithms for classification. Decision Trees work by recursively splitting the data into subsets based on input features. They try create homogeneous subsets by calculating impurity of a node and reducing the impurity to 0.
+Decision Trees are useful machine learning algorithms for classification. Decision Trees work by recursively splitting the data into subsets based on input features. They try to create homogeneous subsets by calculating the impurity of a node and reducing the impurity to 0.
 
-There were two important hyperparameters that I looked at, criterion and min_samples_split. I considered "gini"
-criterion to split the nodes of the tree and checked performance for different values of min_samples_split.
+There were two important hyperparameters that I looked at, criterion and min_samples_split. I considered the "gini" criterion to split the nodes of the tree and checked performance for different values of min_samples_split.
 ```python
 weather_dt = DecisionTreeClassifier(criterion='gini', min_samples_split=10)
 weather_dt.fit(X_train, y_train)
@@ -138,11 +138,10 @@ A snapshot from all the confusion matrices:
  <img width="80%" alt="image" src="https://github.com/user-attachments/assets/f309fbe9-b95d-49b9-aff6-8962919c05ff">
 </div>
 
-I tried pruning the decision tree by increasing the ‘min_samples_split’ parameter. I found that that the overall accuracy for the testing data is improved a little but in some cases the accuracy has become worse. For instance, in the case of Valentia, the pleasant days accuracy was very poor. The model predicted it correctly only 70 times out of 132 predictions! It might be due to the case that there are more unpleasant days recorded than there are pleasant days recorded. Therefore, I don’t think pruning the decision tree might help.
-
+I tried pruning the decision tree by increasing the min_samples_split parameter. I found that the overall accuracy for the testing data improved a little, but in some cases, the accuracy worsened. For instance, in the case of Valentia, the pleasant days accuracy was very poor. The model predicted it correctly only 70 times out of 132 predictions! This might be because there are more unpleasant days recorded than pleasant days. Therefore, I don’t think pruning the decision tree might help.
 
 ### Multilayer Perceptron Model
-One of the more basic but effective artifical neural network is Multilayer-Perceptron Model. This model takes 3 important hyperparameters, number of hidden layers and neurons, maximum iterations, and tolerance level. Following is one of the model that I developed to assess its' accuracy:
+One of the more basic but effective artificial neural networks is the Multilayer Perceptron Model. This model takes 3 important hyperparameters: the number of hidden layers and neurons, maximum iterations, and tolerance level. Following is one of the models that I developed to assess its accuracy:
 
 ```python
 #Creating an ANN with 3 hidden layers 25 nodes each and 500 iterations
@@ -157,11 +156,11 @@ Following are the results:
 
 </div>
 
-In my opinion, three hidden layers of 35 nodes each with 1000 iterations and 0.0001 tolerance level worked the best for testing accuracy. Though, we will use other neural networks with regularization techniques to improve these results.
+In my opinion, three hidden layers of 35 nodes each, with 1000 iterations and a 0.0001 tolerance level, worked the best for testing accuracy. However, we will use other neural networks with regularization techniques to improve these results.
 
 
 ### Hierarchical Clustering
-I then looked at an unsupervised machine learning algorithms to find if they can produce some meaningful clusters. I plotted dendrograms to see how these clusters are formed. There were several methods to calculate the distance between clusters such as 'single', 'complete', 'average', and 'ward' method. I looked at all the methods for selected years and created a crosstab to find the intersection of clusters created and pleasant and unpleasant days.
+I then looked at unsupervised machine learning algorithms to see if they could produce meaningful clusters. I plotted dendrograms to observe how these clusters are formed. There were several methods to calculate the distance between clusters, such as the 'single', 'complete', 'average', and 'ward' methods. I examined all the methods for selected years and created a crosstab to find the intersection of clusters created and pleasant and unpleasant days.
 
 ```python
 # Clusters and Dendograms using 'average' method
@@ -178,9 +177,9 @@ plt.show()
   <img width="90%" alt="image" src="https://github.com/user-attachments/assets/5ea82653-7ffc-44c8-b9fd-524f146bffd8">
 </div>
 
-There are 2 major clusters immediately visible. There are 2 small clusters as well with one cluster having only one point.
+There are two major clusters immediately visible. There are also two small clusters, with one cluster having only one point.
 
-The above example considered all weather stations across Europe for 2010. We can either focus on all weather stations across Europe at a time or look at individual weather stations at a time. We can also have control or how the between clusters is to be calculated.
+The above example considered all weather stations across Europe for 2010. We can either focus on all weather stations across Europe at once or look at individual weather stations separately. We can also control how the distance between clusters is calculated.
 
 The below demonstration shows crosstab for weather station DUSSELDORF.
 
@@ -204,13 +203,13 @@ pd.crosstab(index = [df1_AM['STOCKHOLM_pleasant_weather']],columns =df1_AM['clus
   <img width="45%" alt="image" src="https://github.com/user-attachments/assets/f98f6947-d257-41e1-a949-ee87cb652938">
 </div>
 
-For both the weather station Dusseldorf and Stockholm, cluster 3 had almost all pleasant days. This means any day falling outside cluster 3 is likely to be unpleasant.
+For both the weather stations Dusseldorf and Stockholm, cluster 3 had almost all pleasant days. This means any day falling outside cluster 3 is likely to be unpleasant.
 
-I think if we are to find new weather patterns over years, we can perhaps create clusters for each year. Then, we can analyze how each these groups change to see if there are any significant changes that has taken place over time. 
+I think if we aim to find new weather patterns over the years, we can create clusters for each year. Then, we can analyze how these groups change to see if there are any significant changes that have taken place over time.
 
 
 ### Random Forests
-Random forests are an ensemble learning algorithm that combine multiple decision trees to improve predictive performance. We can use them to identify important features that are related to extreme weather events. I used them for classification purpose using weather data from all stations for between 2012-2022. I used GridSearch() to find optimal hyperparameters to build this model.
+Random forests are an ensemble learning algorithm that combines multiple decision trees to improve predictive performance. We can use them to identify important features related to extreme weather events. I used them for classification purposes using weather data from all stations for the period between 2012 and 2022. I used GridSearch() to find optimal hyperparameters to build this model.
 
 
 ```python
@@ -251,7 +250,7 @@ Random Forest Classifier (with optimization) 61%
     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/3f49116c-8954-48ad-b1f7-6e39f3ab722e">
 </div>
 
-This decision tree from the random forests classifier is very complex and in incomprehensible. When I looked at individual stations with all years of data and performed GridSearch(), it was much more simple and comrehensible. Below is a model build for Maastricht for all Years of data.
+The decision tree from the random forests classifier is very complex and incomprehensible. When I looked at individual stations with all years of data and performed GridSearch(), it was much simpler and comprehensible. Below is a model built for Maastricht for all years of data.
 ```python
 #Grid_Space
 grid_space={'max_depth':[2,3,5,None],
@@ -312,7 +311,7 @@ plt.yticks(fontsize=10);
 In this case, maximum temperature, precipitation, and sunshine were important. Random forests can produce good resutls for individual stations.
 
 ### Convolutional Neural Network
-Convolutional Neural Network is a deep learning algorithm and much more complex than multilayer perceptron model. This model took over an hour to optimize as I trained it on the entire dataset and the high number of hyperparameters involved. This required using BaysianOptimization() to find the best values for hyperparameters.
+A Convolutional Neural Network (CNN) is a deep learning algorithm and much more complex than a multilayer perceptron model. This model took over an hour to optimize as I trained it on the entire dataset due to the high number of hyperparameters involved. This required using BayesianOptimization() to find the best values for hyperparameters.
 ```python
 # Create function
 def bay_area(neurons, activation, kernel, optimizer, learning_rate, batch_size, epochs,
@@ -421,12 +420,12 @@ model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, verbose=2)
     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/dcaf5c43-4696-438a-ac80-7a3cf6ead86c">
 </div>
 
-This is much more useful model when we want to predict unpleasant and pleasant days for the entire dataset containing all 15 weather stations. In comparisoh, Random Forests had accuracy was 100% for one station at a time and about 62% for all the stations.
+This is a much more useful model when we want to predict unpleasant and pleasant days for the entire dataset containing all 15 weather stations. In comparison, Random Forests had 100% accuracy for one station at a time and about 62% for all the stations.
 
-Note: 
-* I have not optimized Recurrent Neural Networks(RNN) such as Long- Short Term Memory(LSTM) which works better with time-series data that can also be used if we are to predict extreme weather events.
-* CNN works well image data and can be used for classification of weather images into different categories describing weather events. I have added the script for weather image classification in the scripts folder. It had an accuracy of 93.33%.
-* Scritps for Generative Adversarial Networks(GAN) have been left out from this presentation to make it more focused on classification algorithms. None the less, they are available in the scripts folder if you want to check them out. They have the potential to visualize how future weather events can look like if we train them on sufficiently large dataset of images with extreme weather events. 
+**Note:**
+* I have not optimized Recurrent Neural Networks (RNN) such as Long Short-Term Memory (LSTM), which works better with time-series data and can also be used if we aim to predict extreme weather events.
+* CNN works well with image data and can be used for the classification of weather images into different categories describing weather events. I have added the script for weather image classification in the scripts folder. It had an accuracy of 93.33%.
+* Scripts for Generative Adversarial Networks (GAN) have been left out of this presentation to make it more focused on classification algorithms. Nonetheless, they are available in the scripts folder if you want to check them out. They have the potential to visualize how future weather events can look if we train them on a sufficiently large dataset of images with extreme weather events.
 
 ## Conclusion and Recommendations
 

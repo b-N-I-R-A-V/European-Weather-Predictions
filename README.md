@@ -9,7 +9,7 @@
 * Determining the safest places for people to live in Europe within the next 25 to 50 years.
 
 ## Tools and Techniques
-FFor this project, Python was used. We utilized Scikit-learn, TensorFlow, and Keras as our primary libraries for machine learning algorithms, along with the data manipulation library pandas and the numerical computation library NumPy. Specifically, we used the following tools and techniques:
+For this project, Python was used. We utilized Scikit-learn, TensorFlow, and Keras as our primary libraries for machine learning algorithms, along with the data manipulation library pandas and the numerical computation library NumPy. Specifically, we used the following tools and techniques:
 * K-Nearest Neighbors (KNN), Decision Trees, Random Forests, Convolutional Neural Networks, Recurrent Neural Networks (Long Short-Term Memory), and Generative Adversarial Networks (GAN).
 * Scaling data to improve model performance.
 * Gradient Descent method for predicting temperature.
